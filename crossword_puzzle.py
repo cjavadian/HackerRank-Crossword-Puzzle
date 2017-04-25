@@ -15,6 +15,8 @@ def countB(row):
             count = count + 1
     blanks.append(count)
     return blanks
+    #NAH
+    
 
 def findSol():
     row = 0
