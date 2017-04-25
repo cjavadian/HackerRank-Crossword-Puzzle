@@ -3,14 +3,24 @@
 
 grid = []
 
-def findBlank():
-    for x in range(10):
-        
-    return
-        
+def countB(row):
+    blanks = []
+    first = False
+    count = 0
+    for y in range(10):
+        if grid[row][y] == '-':
+            if first == False:
+                blanks.append(y)
+                first = True
+            count = count + 1
+    blanks.append(count)
+    return blanks
 
 def findSol():
-    findBlank()
+    row = 0
+    blanks = countB(row)
+    if blanks[1] > 1:
+        
     return
 
 def main():
@@ -22,3 +32,5 @@ def main():
     words = input().split(';')
     findSol()
     return
+
+main()
