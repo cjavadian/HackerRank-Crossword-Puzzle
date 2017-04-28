@@ -12,41 +12,35 @@ class Space:
         self.vertical = vertical
         self.taken = taken
 
-
-def foundSpace(row, col):
-    return 23
-
-
-def findSpace():
-    for row in range(10):
-        for col in range(10):
-            if grid[row][col] == '-':
-                foundSpace(row, col)
-    return 23
-
+def main():
+    solution, spaces = readSpaces()
+    words = input().split(';')
+    findSol(solution, spaces, words)
+    for row in solution:
+        print("".join(row))
 
 def readSpaces():
     rows = []
     for i in range(10):
         row = input()
         rows.append(row)
-    row_spaces = _get_spaces(rows, False)
+    row_spaces = _get_spaces(rows)
     cols = []
-    for i in range(10):
+    for x in range(10):
         col = ""
-        for j in range(10):
-            col += rows[j][i]
+        for y in range(10):
+            col += rows[y][x]
         cols.append(col)
-    col_spaces = _get_spaces(cols, True)
+    col_spaces = _get_spaces(cols, vertical = True)
     return [list(row) for row in rows], row_spaces + col_spaces
 
-def _get_spaces(lines, vertical):
+def _get_spaces(lines, vertical=False):
     '''Takes in a line of the grid and counts the spaces, and stores them in an array.
        The input vertical has the value True if the line is a column.'''
     spaces = []
     n = 0
-    for i in lines:
-        for j in whereAreSpaces(i):
+    for line in lines:
+        for j in whereAreSpaces(line):
             index, length = j
             if (vertical == True):
                 start = (index, n)
@@ -61,13 +55,13 @@ def whereAreSpaces(line):
     for blank in line.split("+"):
         length = len(blank)
         if length > 1:
-            n = 0
-            while n < length:
-                n = line.find(blank, n)
+            index = 0
+            while index < length:
+                index = line.find(blank, index)
                 if line == -1:
                     break
-                spaces.append((n, length))
-                n += length
+                spaces.append((index, length))
+                index += length
     return spaces
 
 def findSol(grid, spaces, words):
@@ -82,7 +76,7 @@ def findSol(grid, spaces, words):
                 space.taken = True
                 new_words = set(words)
                 new_words.remove(word)
-                if findSol(grid, space, new_words):
+                if findSol(grid, spaces, new_words):
                     return True
                 addWord(grid, space, before) #will revert the grid if the solution is incorrect
                 space.taken = False
@@ -95,7 +89,7 @@ def canAddWord(grid, space, word):
         return False
     row, col = space.start
     for i in word:
-        if (grid[row][col] != "-" or grid[row][col] != i):
+        if not (grid[row][col] == "-" or grid[row][col] == i):
             return False
         row, col = nextSpace(row, col, space.vertical)
     return True
@@ -115,25 +109,5 @@ def nextSpace(row, col, vertical):
     else:
         return row, col + 1
     
-
-def main():
-    grid, spaces = readSpaces()
-    words = input().split(';')
-    findSol(grid, spaces, words)
-    for i in grid:
-        print("".join(i))
-
-    return
-
-    '''      
-    lines = 10
-    while (lines):
-        grid_l = input()
-        grid.append(list(grid_l))
-        lines = lines - 1
-    words = input().split(';')
-    findSpace()
-    #findSol(words)
-    return'''
 
 main()
