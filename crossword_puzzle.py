@@ -13,28 +13,29 @@ class Space:
         self.taken = taken
 
 def main():
-    solution, spaces = readSpaces()
-    words = input().split(';')
-    findSol(solution, spaces, words)
+    solution, spaces = readGrid() #reads the input and saves grid to solution and spaces variables
+    words = input().split(';') #breaks input separated by semicolons and stores in words variable
+    findSol(solution, spaces, words) #computes solution based on input grid and words
     for row in solution:
-        print("".join(row))
+        print("".join(row))#prints solved grid solution line-by-line
 
-def readSpaces():
+def readGrid():
+    '''TODO: comment'''
     rows = []
     for i in range(10):
         row = input()
         rows.append(row)
-    row_spaces = _get_spaces(rows)
+    row_spaces = countSpaces(rows)
     cols = []
     for x in range(10):
         col = ""
         for y in range(10):
             col += rows[y][x]
         cols.append(col)
-    col_spaces = _get_spaces(cols, vertical = True)
+    col_spaces = countSpaces(cols, vertical = True)
     return [list(row) for row in rows], row_spaces + col_spaces
 
-def _get_spaces(lines, vertical=False):
+def countSpaces(lines, vertical=False):
     '''Takes in a line of the grid and counts the spaces, and stores them in an array.
        The input vertical has the value True if the line is a column.'''
     spaces = []
@@ -51,16 +52,17 @@ def _get_spaces(lines, vertical=False):
     return spaces
 
 def whereAreSpaces(line):
+    '''TODO comment '''
     spaces = []
-    for blank in line.split("+"):
-        length = len(blank)
+    for blanks in line.split("+"):
+        length = len(blanks)
         if length > 1:
             index = 0
             while index < length:
-                index = line.find(blank, index)
+                index = line.find(blanks, index)
                 if line == -1:
                     break
-                spaces.append((index, length))
+                spaces.append((index, length))#appends the tuple of index and length to spaces array
                 index += length
     return spaces
 
@@ -104,10 +106,10 @@ def addWord(grid, space, word):
     return new_grid
 
 def nextSpace(row, col, vertical):
-    if vertical:
-        return row + 1, col
+    if vertical is True:
+        return (row + 1), col
     else:
-        return row, col + 1
+        return row, (col + 1)
     
 
 main()
