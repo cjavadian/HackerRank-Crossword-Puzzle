@@ -1,7 +1,7 @@
 # Catherine Javadian, Jennifer Cafiero, and Jordana Approvato
 # We pledge our honor that we have abided by the Stevens Honor System
 
-grid = []
+solution = []
 spaces = []
 blanks = []
 
@@ -14,7 +14,7 @@ class Space:
 
 def main():
     solution, spaces = readGrid() #reads the input and saves grid to solution and spaces variables
-    words = input().split(';') #breaks input separated by semicolons and stores in words variable
+    words = set(input().split(';')) #breaks input separated by semicolons and stores in words variable
     findSol(solution, spaces, words) #computes solution based on input grid and words
     for row in solution:
         print("".join(row))#prints solved grid solution line-by-line
