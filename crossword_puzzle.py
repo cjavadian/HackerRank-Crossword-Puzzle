@@ -20,7 +20,7 @@ def main():
         print("".join(row))#prints solved grid solution line-by-line
 
 def readGrid():
-    '''TODO: comment'''
+    '''REads the grid and finds the spaces in the rows and columns'''
     rows = []
     for i in range(10):
         row = input()
@@ -52,7 +52,7 @@ def countSpaces(lines, vertical=False):
     return spaces
 
 def whereAreSpaces(line):
-    '''TODO comment '''
+    '''Finds the spaces in the line and appends a tuple of the index and length to spaces'''
     spaces = []
     for blanks in line.split("+"):
         length = len(blanks)
@@ -82,11 +82,13 @@ def findSol(grid, spaces, words):
                     return True
                 addWord(grid, space, before) #will revert the grid if the solution is incorrect
                 space.taken = False
-                
+
     #if it reaches this far, breaks out of the for loop, and does not yet have a solution, it is unsolvable
     return False
 
 def canAddWord(grid, space, word):
+    '''Returns true if that word can be added to that place in the grid and
+        returns false if it cannot'''
     if space.taken or len(word) != space.length:
         return False
     row, col = space.start
@@ -97,6 +99,7 @@ def canAddWord(grid, space, word):
     return True
 
 def addWord(grid, space, word):
+    '''adds the given word to the grid and returns the new grid'''
     new_grid = []
     row, col = space.start
     for char in word:
@@ -106,10 +109,11 @@ def addWord(grid, space, word):
     return new_grid
 
 def nextSpace(row, col, vertical):
+    '''Returns the position of the next space, whether its vertical or horizontal'''
     if vertical is True:
         return (row + 1), col
     else:
         return row, (col + 1)
-    
+
 
 main()
