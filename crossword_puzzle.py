@@ -20,7 +20,7 @@ def main():
         print("".join(row))#prints solved grid solution line-by-line
 
 def readGrid():
-    '''REads the grid and finds the spaces in the rows and columns'''
+    '''Reads the grid and finds the spaces in the rows and columns'''
     rows = []
     for i in range(10):
         row = input()
